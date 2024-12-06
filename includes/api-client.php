@@ -1,11 +1,6 @@
 
 
 <?php 
-header("Access-Control-Allow-Origin: *"); // Permitir todas las orígenes, o reemplazar "*" por tu dominio específico
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE"); // Métodos permitidos
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
-
-
 
 
 
