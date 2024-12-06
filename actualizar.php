@@ -3,10 +3,12 @@
 
 require_once 'includes/api-client.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['id']) && isset($_GET['email']) && isset($_GET['contra'])) {
+parse_str(file_get_contents("php://input"), $_PUT);
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['id']) && isset($_PUT['email']) && isset($_PUT['contra'])) {
     $id = $_GET['id'];
-    $email = $_GET['email'];
-    $contra = $_GET['contra'];
+    $email = $_PUT['email'];
+    $contra = $_PUT['contra'];
 
     Client::update_client($id, $email, $contra); 
 } else {

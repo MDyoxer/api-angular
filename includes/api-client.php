@@ -79,17 +79,20 @@ class Client {
         public static function show_clients(){
             $database = new Database();
             $pdo = $database->getConnection();
-
-            $stmt = $pdo->prepare('SELECT * FROM registro');
-            
-            if ($stmt->execute()) {
-                $result = $stmt->fetchAll();
-                header('HTTP/1.1 200 Cliente mostrados correctamente');
-                echo json_encode(['message' => 'Cliente mostrados correctamente']);
-            } else {
-                header('HTTP/1.1 400 Cliente no se han podido consultar correctamente');
-                echo json_encode(['message' => 'Cliente no se ha consultado correctamente']);
+        
+            try {
+                $stmt = $pdo->prepare('SELECT * FROM registro');
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                header('Content-Type: application/json');
+                header('HTTP/1.1 200 Clientes mostrados correctamente');
+                echo json_encode($result);
+            } catch (PDOException $e) {
+                header('HTTP/1.1 500 Error interno del servidor');
+                echo json_encode(['error' => $e->getMessage()]);
             }
         }
+        
 }
 ?>
